@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <title>Instagram Clone</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'assets/favicon.svg'%}" type="image/x-icon" />
+   
+{% block custom_css %}{% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css'%}" />
+
+  
+  </head>
+
+  <body>
+    {% include 'desktop-nav.html' %}
+          {% block content %}{% endblock %}
+          {% if request.user.is_authenticated %}
+     {% include 'mobile-nav.html' %}
+     {% endif %}
+    <script src="{% static 'assets/js/jquery-3.2.1.min.js'%}" ></script>
+      {% block js %}{% endblock %}
+    <script src="{% static 'assets/js/main.js'%}" defer></script>
+        
+
+
+  </body>
+</html>

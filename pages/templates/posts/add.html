@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% load static %} {% block custom_css %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css'%}" />
+
+{% endblock %} {% block content %}
+<style>
+
+</style>
+<div class="login__container">
+  <div class="login__box">
+    <div class="login__heading">
+      <h1>Create Post.</h1>
+    </div>
+    {% include 'msgBox.html' %}
+    <form class="login-form" method="POST" action="." enctype="multipart/form-data">
+      {% csrf_token %} {% for field in form %}
+      <div class="login__field">{{field.label}} {{field}}</div>
+      {% endfor %}
+
+      <div class="login__field">
+        <input
+          type="submit"
+          style="background: rgba(2, 61, 21, 0.73); color: white"
+          value="Add Post"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% load static %}
+<!-- <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script> -->
+<script>
+
+  $(".login__field a").parent().addClass("profile__link");
+  var image = $(".login__field a").attr("href");
+
+  $(".profile__link").html(`<img src="${image}" > 
+  <input type="file" name="avatar" accept="image/*" id="id_avatar">`)
+  
+
+</script>
+
+{% endblock %}

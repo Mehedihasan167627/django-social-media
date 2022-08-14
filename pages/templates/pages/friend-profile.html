@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'assets/css/profile.css'%}">
+
+{% endblock %}
+
+{% block content %}
+<style>
+	a{text-decoration: none;}
+
+</style>
+<header>
+
+	<div class="container" style="margin-top:20px; max-width: 99.5rem;">
+
+		<div class="profile">
+
+			<div class="profile-image" style="justify-content:left;">
+
+				<img src="{{profile.avatar.url}}" style="max-width:150px" alt="">
+
+			</div>
+
+			<div class="profile-user-settings">
+
+				<h1 class="profile-user-name">{{profile.url}}</h1>
+      
+        {% if request.user in profile.follower.all %}
+      
+					<button style="background:rgb(20, 18, 18);color:white" class="btn follow__btn__with__url_{{profile.url}}  profile-edit-btn follow__btn" id="{{profile.url}}">UnFollow</button>
+
+        {% else %}
+        <button class="btn profile-edit-btn follow__btn__with__url_{{profile.url}}  follow__btn" id="{{profile.url}}">Follow</button>
+			
+				{% endif %}
+
+			</div>
+
+			<div class="profile-stats">
+
+				<ul>
+					<li><span class="profile-stat-count">{{profile.post_set.all.count}}</span> posts</li>
+					<li><span class="profile-stat-count " id="follower__count">{{profile.follower.count}}</span> followers</li>
+					<li><span class="profile-stat-count">{{profile.following.count}}</span> following</li>
+				</ul>
+
+			</div>
+
+			<div class="profile-bio">
+
+				<p >
+					<span class="profile-real-name">
+					{{profile.first_name}}
+					{{profile.last_name}}
+
+				</span > {{profile.profile_info|safe}}</p>
+
+			</div>
+
+		</div>
+		<!-- End of profile section -->
+
+	</div>
+	<!-- End of container -->
+
+</header>
+
+  <section class="content-container">
+        <div class="content">
+      
+    {% include 'msgBox.html' %}
+           {% csrf_token %}
+          <div class="posts">
+            {% for p in profile.post_set.all|dictsortreversed:"id" %}
+               <article class="post">
+          <div class="post__header">
+            <div class="post__profile">
+              <a
+                href="{% url 'pages:friend-profile' p.author.url %}"
+                target=""
+                class="post__avatar"
+              >
+                <img src="{{p.author.avatar.url}}" alt="User Picture" />
+              </a>
+              <a
+                href="{% url 'pages:friend-profile' p.author.url %}"
+                target=""
+                class="post__user"
+                >{{p.author.url}}
+              </a>
+              <span style="font-size: 9px; color: lightgray"
+                >{{p.created_at|timesince}} ago</span
+              >
+            </div>
+
+            <button class="post__more-options">
+            <img src="{% static 'assets/icons/more.svg' %}" alt="">
+            </button>
+          </div>
+
+          <div class="post__content">
+            <div class="post__medias">
+              <img
+                class="post__media"
+                src="{{p.thumbnail.url}}"
+                alt="Post Content" 
+                style="cursor: pointer"
+              />
+            </div>
+          </div>
+
+          <div class="post__footer">
+            <div class="post__buttons">
+              <button
+                class="post__button like__unlike__btn"
+                style="display: flex; align-items: center" id="{{p.slug}}">
+                {% if request.user.profile in p.likes.all %}
+                <img src="{% static 'assets/icons/red-heart.svg' %}" id="heart__icon__{{p.slug}}" style="width:24px" alt="">
+                {% else %} 
+                <img src="{% static 'assets/icons/heart.svg' %}" id="heart__icon__{{p.slug}}" style="width:24px" alt="">
+                {% endif %}
+                <span
+                  style="margin-right: 20px; margin-left: 4px"
+                  id="like__counter__{{p.slug}}"
+                >
+                  {{p.likes.all.count}}
+                </span>
+              </button>
+              <button
+                class="post__button"
+                style="display: flex; align-items: center"
+              >
+        <img src="{% static 'assets/icons/comment.svg' %}" alt="">
+                
+                <span
+                  style="margin-right: 20px; margin-left: 4px"
+                  id="comment__counter__{{p.slug}}"
+                >
+                  {{p.comment_set.all.count}}
+                </span>
+              </button>
+              <button
+                class="post__button"
+                style="display: flex; align-items: center"
+              >
+              <img src="{% static 'assets/icons/share.svg' %}" alt="">
+                
+                <span style="margin-right: 20px; margin-left: 4px">20</span>
+              </button>
+
+              <div class="post__indicators"></div>
+
+              <button class="post__button post__button--align-right">
+                         <img src="{% static 'assets/icons/bookmark.svg' %}" alt="">
+
+                 
+              </button>
+            </div>
+
+            <div class="post__infos">
+              <div class="post__likes">
+                <a href="#" class="post__likes-avatar">
+                  <img
+                    src="{% static 'assets/default-user.png' %}"
+                    alt="User Picture"
+                  />
+                </a>
+
+                <span
+                  >Liked by
+                  <a class="post__name--underline" href="#">user123</a> and
+                  <a href="#">73 others</a></span
+                >
+              </div>
+
+              <div class="post__description">
+                <span> {{p.caption|safe}} </span>
+              </div>
+              <div class="comment_box">
+                <h6>Comments</h6>
+                <div class="comment__list" id="comment__list__{{p.slug}}" >
+                  {% for c in p.comment_set.all|dictsortreversed:"id" %}
+                   
+                  <div class="single__box">
+                    <div class="avatar">
+                      <img src="{{c.comment_by.avatar.url}}" alt="" />
+                      <p>{{c.comment_by.url}}</p>
+                    </div>
+                    <div class="comment__text">
+                      <div class="line"></div>
+                        {{c.body}}</div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <form action="" class="comment__form">
+                <div class="input_group__box">
+                  <input
+                    type="text"
+                    class="comment__input comment__unique__box__{{p.slug}}"
+                    id="{{p.slug}}"
+                    placeholder="write a comment..."
+                    style="outline: none"
+                    name=""
+                    id=""
+                  />
+                  <button class="send__btn">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </article>
+            {% endfor %}
+            
+          
+          </div>
+        </div>
+          <!-- {% include 'components/side-menu.html' %} -->
+       
+      </section>
+{% endblock %}

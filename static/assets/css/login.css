@@ -1,0 +1,87 @@
+.login__container{
+    margin-top: 80px;
+    display:flex;
+    flex-direction: column;
+ 
+    justify-content: center;
+   align-items: center;
+}
+.login__box{
+    width:350px;
+    padding:30px 20px;
+    border:1px solid rgba(195, 186, 186, 0.685);
+}
+
+.login__heading h1{
+    font-weight: 500; 
+    font-size:25px;
+    text-align: center; 
+    margin-bottom: 30px;
+}
+.login__field input{
+    width:100%;
+    font-size:16px;
+    height: 38px;
+    outline:none;
+    padding:5px 10px;
+   margin-bottom: 10px;
+   border:none;
+   border-radius: 2px;
+    border: 1px solid rgba(195, 186, 186, 0.685);
+    background: #f9efef;
+}
+.login__separator .line{
+    width:100px;
+    height: 1px;
+    background-color: rgb(157, 149, 149);
+}
+.login__separator{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.login__separator p{
+    margin:0px 10px;
+}
+.login__other{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login__other button{
+    width: 100%;
+        font-size: 18px;
+        height: 35px;
+        outline: none;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 2px;
+        background: none;
+}
+
+.login__other a{
+    text-decoration: none; 
+    color:black;
+    font-size:15px
+}
+
+.sign_up{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login__field textarea{
+    width: 100%;
+        font-size: 16px;
+        height: 150px;
+        outline: none;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 2px;
+        border: 1px solid rgba(195, 186, 186, 0.685);
+        background: #f9efef;
+}

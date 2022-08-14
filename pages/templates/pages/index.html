@@ -1,0 +1,226 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<main class="main-container">
+  <section class="content-container">
+    <div class="content">
+      {% include 'components/story.html' %}
+      {% include 'msgBox.html' %}
+   <div class="stories">
+            <button class="stories__left-button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  fill="#fff"
+                  d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                ></path>
+              </svg>
+            </button>
+            <div class="stories__content">
+            {% for p in profile_list %}
+              <div class="story" style="border-radius:3px;min-width:150px;border:1px solid rgba(0, 0, 0, 0.268);padding:10px 0px">
+                <div class="story__avatar">
+                  <div class="story__border">
+                    <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+                      <circle r="31" cy="32" cx="32" />
+                    </svg>
+                  </div>
+                  <div class="story__picture">
+                    <img
+                      src="{{p.avatar.url}}"
+                      alt="User Picture"
+                    />
+                  </div>
+                </div>
+                <a href="{% url 'pages:friend-profile' p.url %}" class="story__user" style="font-size:16px">{{p.url}}</a>
+                <button style="cursor:pointer" class="btn primary__btn follow__btn__with__url_{{p.url}} follow__btn" id="{{p.url}}">Follow</button>
+              </div>
+            {% endfor %}
+           
+              
+            </div>
+              <button class="stories__right-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              fill="#fff"
+              d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
+            ></path>
+          </svg>
+        </button>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+      <div class="posts">   
+        {% for p in posts %}
+        <article class="post">
+          <div class="post__header">
+            <div class="post__profile">
+              <a
+                href="{% url 'pages:friend-profile' p.author.url %}"
+                target=""
+                class="post__avatar"
+              >
+                <img src="{{p.author.avatar.url}}" alt="User Picture" />
+              </a>
+              <a
+                href="{% url 'pages:friend-profile' p.author.url %}"
+                target=""
+                class="post__user"
+                >{{p.author.url}}
+              </a>
+              <span style="font-size: 9px; color: lightgray"
+                >{{p.created_at|timesince}} ago</span
+              >
+            </div>
+
+            <button class="post__more-options">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="6.5" cy="11.5" r="1.5" fill="var(--text-dark)" />
+                <circle cx="12" cy="11.5" r="1.5" fill="var(--text-dark)" />
+                <circle cx="17.5" cy="11.5" r="1.5" fill="var(--text-dark)" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="post__content">
+            <div class="post__medias">
+              <img
+                class="post__media"
+                src="{{p.thumbnail.url}}"
+                alt="Post Content" 
+                style="cursor: pointer"
+              />
+            </div>
+          </div>
+
+          <div class="post__footer">
+            <div class="post__buttons">
+              <button
+                class="post__button like__unlike__btn"
+                style="display: flex; align-items: center" id="{{p.slug}}">
+                {% if request.user.profile in p.likes.all %}
+                <img src="{% static 'assets/icons/red-heart.svg' %}" id="heart__icon__{{p.slug}}" style="width:24px" alt="">
+                {% else %} 
+                <img src="{% static 'assets/icons/heart.svg' %}" id="heart__icon__{{p.slug}}" style="width:24px" alt="">
+                {% endif %}
+                <span
+                  style="margin-right: 20px; margin-left: 4px"
+                  id="like__counter__{{p.slug}}"
+                >
+                  {{p.likes.all.count}}
+                </span>
+              </button>
+              <button
+                class="post__button"
+                style="display: flex; align-items: center"
+              >
+        <img src="{% static 'assets/icons/comment.svg' %}" alt="">
+                
+                <span
+                  style="margin-right: 20px; margin-left: 4px"
+                  id="comment__counter__{{p.slug}}"
+                >
+                  {{p.comment_set.all.count}}
+                </span>
+              </button>
+              <button
+                class="post__button"
+                style="display: flex; align-items: center"
+              >
+              <img src="{% static 'assets/icons/share.svg' %}" alt="">
+                
+                <span style="margin-right: 20px; margin-left: 4px">20</span>
+              </button>
+
+              <div class="post__indicators"></div>
+
+              <button class="post__button post__button--align-right">
+                <img src="{% static 'assets/icons/bookmark.svg' %}" alt="">
+                 
+              </button>
+            </div>
+
+            <div class="post__infos">
+              <div class="post__likes">
+                <a href="#" class="post__likes-avatar">
+                  <img
+                    src="{% static 'assets/default-user.png' %}"
+                    alt="User Picture"
+                  />
+                </a>
+
+                <span
+                  >Liked by
+                  <a class="post__name--underline" href="#">user123</a> and
+                  <a href="#">73 others</a></span
+                >
+              </div>
+
+              <div class="post__description">
+                
+                <span> {{p.caption|safe|truncatewords:30}}
+                  <button  style="color:blue;border:none;background:white;cursor: pointer;">read more</button>
+                </span>
+              </div>
+              <div class="comment_box">
+                <h6>Comments</h6>
+                <div class="comment__list" id="comment__list__{{p.slug}}" >
+                  {% for c in p.comment_set.all|dictsortreversed:"id" %}
+                   
+                  <div class="single__box">
+                    <div class="avatar">
+                      <img src="{{c.comment_by.avatar.url}}" alt="" />
+                      <p>{{c.comment_by.url}}</p>
+                    </div>
+                    <div class="comment__text">
+                      <div class="line"></div>
+                        {{c.body}}</div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <form action="" class="comment__form">
+                <div class="input_group__box">
+                  <input
+                    type="text"
+                    class="comment__input comment__unique__box__{{p.slug}}"
+                    id="{{p.slug}}"
+                    placeholder="write a comment..."
+                    style="outline: none"
+                    name=""
+                    id=""
+                  />
+                  <button class="send__btn">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    
+     
+       
+        
+    </div>
+    {% include 'components/side-menu.html' %}
+  </section>
+</main>
+
+{% endblock %} {% block js %}
+<script src="{% static 'assets/js/home.js'%}"></script>
+
+{% endblock %}

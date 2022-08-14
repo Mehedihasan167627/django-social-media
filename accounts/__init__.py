@@ -1,0 +1,1 @@
+APP_DEFAULT_CONFIG="administrator.apps.AdministratorConfig"

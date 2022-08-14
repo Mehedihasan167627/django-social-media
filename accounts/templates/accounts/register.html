@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block custom_css %}
+   <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+ <div class="login__container">
+    <div class="login__box">
+        <div class="login__heading">
+          <h1>Instagram Clone</h1>
+        </div>
+        {% include 'msgBox.html' %}
+
+        <form class="login-form" method="post" action=".">
+            {% csrf_token %}
+            <div class="login__field">
+                <input id="username" type="text" name="username" placeholder="Username" required />
+                
+            </div>
+            <div class="login__field">
+                <input id="username" type="email" name="email" placeholder="Email address" required />
+                
+            </div>
+            <div class="login__field">
+                <input id="password" type="password" name="password" placeholder="password" required />
+              
+            </div>
+            <div class="login__field">
+                <input id="password" type="password" name="confirm_password" required placeholder="Confirm password" />
+              
+            </div>
+            <div class="login__field" >
+                  <input type="submit" style="background:rgba(60, 60, 240, 0.989);color:white;" value="Sign In">
+            </div>
+          
+            
+       
+        </form>
+
+         <div class="sign_up">
+          <p>Already I have an account? <a class="signup" href="{% url 'accounts:login' %}">Log In</a></p>
+         </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+

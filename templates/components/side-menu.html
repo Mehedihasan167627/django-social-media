@@ -1,0 +1,94 @@
+ {% load static %}
+ {% csrf_token %}
+ <section class="side-menu">
+          <div class="side-menu__user-profile">
+            <a
+              href="https://github.com/leocosta1"
+              target="_blank"
+              class="side-menu__user-avatar"
+            >
+              <img src="{% static 'assets/default-user.png' %}" alt="User Picture" />
+            </a>
+            <div class="side-menu__user-info">
+              <a href="https://github.com/mehedihasan167627" target="_blank"
+                >Mehedihasan167627</a
+              >
+              <span>Mehedi Hasan</span>
+            </div>
+            <button class="side-menu__user-button">Switch</button>
+          </div>
+
+          <div class="side-menu__suggestions-section">
+            <div class="side-menu__suggestions-header">
+              <h2>Suggestions for You</h2>
+              <a href="{% url 'pages:find-friend' %}">See All</a>
+            </div>
+            <div class="side-menu__suggestions-content">
+ 
+              {% for ul in profile_list %}
+              <div class="side-menu__suggestion">
+                <a href="#" class="side-menu__suggestion-avatar">
+                  <img src="{{ul.avatar.url}}" alt="User Picture" />
+                </a>
+                <div class="side-menu__suggestion-info">
+                  <a href="{% url 'pages:friend-profile' ul.url %}">{{ul.url}}</a>
+                  <span>Followed by user1, user2 and 9 others</span>
+                </div>
+                {% if request.user in ul.follower.all %}
+                <button class="side-menu__suggestion-button follow__btn__with__url_ follow__btn" id="{{ul.url}}">UnFollow</button>
+                {% else %}
+                      <button class="side-menu__suggestion-button follow__btn__with__url_{{ul.url}} follow__btn" id="{{ul.url}}">Follow</button>
+                {% endif %}
+              </div>
+             {% endfor %}
+            
+
+            </div>
+          </div>
+
+          <div class="side-menu__footer">
+            <div class="side-menu__footer-links">
+              <ul class="side-menu__footer-list">
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">About</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Help</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Press</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">API</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Jobs</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Privacy</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Terms</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Locations</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Top Accounts</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Hashtag</a>
+                </li>
+                <li class="side-menu__footer-item">
+                  <a class="side-menu__footer-link" href="#">Language</a>
+                </li>
+              </ul>
+            </div>
+
+            <span class="side-menu__footer-copyright"
+              >&copy; 2021 instagram from facebook</span
+            >
+          </div>
+        </section>
+
+      

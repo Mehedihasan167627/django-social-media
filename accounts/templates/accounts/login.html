@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block custom_css %}
+   <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+ <div class="login__container">
+    <div class="login__box">
+        <div class="login__heading">
+          <h1>Instagram Clone</h1>
+        </div>
+        {% include 'msgBox.html' %}
+        <form class="login-form" method="POST" action=".">
+          {% csrf_token %}
+            <div class="login__field">
+                <input id="username" type="email" value="{{email}}" name="email" placeholder="Email address" />
+                
+            </div>
+            <div class="login__field">
+                <input id="password" type="password" name="password" placeholder="password" />
+              
+            </div>
+            <div class="login__field" >
+                  <input type="submit" style="background:rgba(36, 36, 218, 0.989);color:white;" value="Log In">    
+            </div>
+          
+            <div class="login__separator">
+              <div class="line"></div>
+                <p>OR</p>
+              <div class="line"></div>
+            </div>
+            <div class="login__other">
+                <button class="fb-login-btn" type="button">
+                    <i class="fa fa-facebook-official fb-icon"></i>
+                    <span class="">Log in with Google</span>
+                </button>
+                <a class="forgot-password" href="#">Forgot password?</a>
+            </div>
+        </form>
+
+         <div class="sign_up">
+          <p>Don't have an account? <a class="signup" href="{% url 'accounts:register' %}">Sign Up</a></p>
+         </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+

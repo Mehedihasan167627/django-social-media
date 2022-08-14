@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% load static %} {% block custom_css %}
+<link rel="stylesheet" href="{% static 'assets/css/profile.css'%}" />
+{% endblock %} {% block content %}
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
+<header>
+  <div class="container" style="margin-top: 20px">
+    <div class="profile">
+      <div class="profile-image">
+        <img src="{{profile.avatar.url}}" style="max-width: 150px" alt="" />
+      </div>
+
+      <div class="profile-user-settings" style="margin-bottom:20px">
+        <h1 class="profile-user-name">{{profile.url}}</h1>
+
+        <a href="{% url 'pages:edit-profile' %}" class="btn profile-edit-btn"
+          >Edit Profile</a
+        >
+        <a href="{% url 'accounts:logout' %}" class="btn profile-edit-btn"
+          >Logout</a
+        >
+
+        <button class="btn profile-settings-btn" aria-label="profile settings">
+          <i class="fa fa-user-circle" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="profile-stats" style="margin-bottom: 20px">
+        <ul>
+          <li>
+            <span class="profile-stat-count"
+              >{{profile.post_set.all.count}}</span
+            >
+            posts
+          </li>
+          <li>
+            <span class="profile-stat-count">{{profile.follower.count}}</span>
+            followers
+          </li>
+          <li>
+            <span class="profile-stat-count">{{profile.following.count}}</span>
+            following
+          </li>
+        </ul>
+      </div>
+
+      <div class="profile-bio">
+        <p>
+          <span class="profile-real-name">
+            {{profile.first_name}} {{profile.last_name}}
+          </span>
+          {{profile.profile_info|safe}}
+        </p>
+      </div>
+    </div>
+    <!-- End of profile section -->
+  </div>
+  <!-- End of container -->
+</header>
+
+<main>
+  <div class="container">
+    <div class="gallery">
+      {% if profile.post_set.all %} 
+	  {% for post in profile.post_set.all|dictsortreversed:"id" %}
+      <div class="gallery-item" tabindex="0">
+        <img src="{{post.thumbnail.url}}" class="gallery-image" alt="" />
+
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <span class=""style="margin-right:3px;">Likes:</span>
+            
+
+              {{post.likes.count}}
+            </li>
+            <li class="gallery-item-comments">
+              <span class="" style="margin-right:3px;">Comments: </span>
+              {{post.comment_set.count}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h2>Post not found!!</h2>
+      {% endif %}
+    </div>
+    <!-- End of gallery -->
+
+    <div class="loader"></div>
+  </div>
+  <!-- End of container -->
+</main>
+
+{% endblock %}

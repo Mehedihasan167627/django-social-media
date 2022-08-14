@@ -1,0 +1,15 @@
+accounts/__pycache__
+accounts/uploads/profile 
+accounts/migrations/__pycache__
+
+main_settings/__pycache__
+
+pages/__pycache__
+pages/migrations/__pycache__
+
+posts/__pycache__
+posts/migrations/__pycache__
+posts/uploads
+
+venv
+db.sqlite3

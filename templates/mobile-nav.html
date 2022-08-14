@@ -1,0 +1,24 @@
+ {% load static %}
+ <nav class="navbar">
+      <a href="/" class="navbar__button">
+        <img src="{% static 'assets/icons/home.svg' %}" alt="">
+        
+      </a>
+      <a href="#" class="navbar__button">
+        <img src="{% static 'assets/icons/search.svg' %}" alt="">
+  
+      </a>
+      <a href="{% url 'pages:add-post' %}" class="navbar__button">
+        <img src="{% static 'assets/icons/add.svg' %}" alt="">
+      </a>
+      <a href="#" class="navbar__button">
+        <img src="{% static 'assets/icons/shop.svg' %}" alt="">
+      
+      </a>
+      <a href="{% url 'pages:profile' %}" class="navbar__button profile-button">
+        <div class="profile-button__border"></div>
+        <div class="profile-button__picture">
+          <img src="{% static 'assets/default-user.png' %}" alt="User Picture" />
+        </div>
+      </a>
+    </nav>

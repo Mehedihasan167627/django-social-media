@@ -1,0 +1,23 @@
+<style>
+    
+  .warning{
+     padding:5px 5px;
+     margin:5px 0px;
+     color:red;
+  }
+  .info{
+     padding:5px 5px;
+     margin:5px 0px;
+     color:green;
+  }
+  .success{
+     padding:5px 5px;
+     margin:5px 0px;
+     color:green;
+  }
+</style>
+{% if messages %} {% for msg in messages %}
+<div class="{{msg.tags}}">
+  <p>{{msg}}</p>
+</div>
+{% endfor %} {% endif %}

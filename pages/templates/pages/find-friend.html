@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<main class="main-container">
+    {% csrf_token %}
+  <section class="content-container">
+     <div class="friend_list">
+        <h5>Suggestions for You - </h5>
+        {% if messages %} {% for msg in messages %}
+         <div class="{{msg.tags}}">
+         <p style="color:blue">{{msg}}</p>
+         </div>
+{% endfor %} {% endif %}
+        {% for p in profile_list %}
+        <div class="single_friend__box">
+          <div class="avatar">
+               <img src="{% static 'assets/default-user.png' %}" alt="">
+               <p>
+                <a href="{% url 'pages:friend-profile' p.url %}">{{p.url}}</a>
+               </p>
+          </div>
+          <div class="fBtn" >       
+             <button style="cursor: pointer" class="btn primary__btn follow__btn__with__url_{{p.url}} follow__btn" id="{{p.url}}">Follow</button>
+          </div>
+        </div>
+        {% endfor %}
+      
+     </div>
+  </section>
+</main>
+
+{% endblock %}
+
+
