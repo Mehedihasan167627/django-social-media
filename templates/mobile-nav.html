@@ -18,7 +18,10 @@
       <a href="{% url 'pages:profile' %}" class="navbar__button profile-button">
         <div class="profile-button__border"></div>
         <div class="profile-button__picture">
-          <img src="{% static 'assets/default-user.png' %}" alt="User Picture" />
+           <img
+            src="{{request.user.profile.avatar.url}}" style="width:25px"
+            alt="User Picture"
+          />
         </div>
       </a>
     </nav>

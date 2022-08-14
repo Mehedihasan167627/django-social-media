@@ -1,6 +1,6 @@
 # Instagram Clone 
 
-## requirements
+##### Required
 >-  python3
 
 
